@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import {AppBar, Toolbar, Typography, Grid} from 'material-ui'
-import {CarouselContainer, Form} from './Common'
+import {CarouselContainer, Form, Map} from './Common'
 
 
 
@@ -28,13 +28,14 @@ class App extends Component {
           <Grid item xs={12} sm={10}>
             <CarouselContainer/>
           </Grid>
-        </Grid>
-
-        <Grid container spacing={40} alignItems="center" direction="row" justify="center">
           <Grid item xs={12} sm={10}>
             <Form/>
           </Grid>
+          <Grid item xs={12}>
+            <Map/>
+          </Grid>
         </Grid>
+
 
       </MuiThemeProvider>
 
