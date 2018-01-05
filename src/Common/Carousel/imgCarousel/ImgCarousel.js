@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const ImgCarousel = ({ className = 'legend', alt, src, legend }) => {
     return (

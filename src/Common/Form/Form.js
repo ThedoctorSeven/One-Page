@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Button, Card, CardActions, CardContent, CardHeader, TextField, withStyles } from 'material-ui'
+import {Button, Card, CardActions, CardContent, CardHeader, TextField, withStyles, Icon } from 'material-ui'
+import { DatePicker } from 'material-ui-pickers';
+import moment from 'moment';
 import PropTypes from 'prop-types';
-import MenuItem from 'material-ui/Menu/MenuItem';
 
 
 
@@ -20,33 +21,16 @@ const styles = theme => ({
     },
   });      
 
-  const currencies = [
-    {
-      value: 'USD',
-      label: '$',
-    },
-    {
-      value: 'EUR',
-      label: '€',
-    },
-    {
-      value: 'BTC',
-      label: '฿',
-    },
-    {
-      value: 'JPY',
-      label: '¥',
-    },
-  ];
-
-class Form extends React.Component {
+class Form extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: 'Cat in the Hat',
-            age: '',
-            multiline: 'Controlled',
-            currency: 'EUR',
+            name: '',
+            firstname: '',
+            mail: '',
+            phoneNumber: '',
+            msg: '',
+            date: '',
         }
     }
 
@@ -55,6 +39,10 @@ class Form extends React.Component {
           [name]: event.target.value,
         });
       };
+
+      handleDateChange = (date) => {
+        this.setState({ date });
+      }
 
     render() {
         const {classes}  = this.props;
@@ -68,158 +56,55 @@ class Form extends React.Component {
           />
         <CardContent>
         <form className={classes.container} noValidate autoComplete="off">
+        <DatePicker
+            keyboard
+            clearable
+            className={classes.textField}
+            // value={selectedDate}
+            onChange={this.handleDateChange}
+            animateYearScrolling={false}
+          />
         <TextField
+          required
           id="name"
-          label="Name"
+          label="Nom"
           className={classes.textField}
           value={this.state.name}
           onChange={this.handleChange('name')}
           margin="normal"
         />
         <TextField
-          id="uncontrolled"
-          label="Uncontrolled"
-          defaultValue="foo"
+          required
+          id="firstname"
+          label="Prénom"
+          className={classes.textField}
+          value={this.state.firstname}
+          onChange={this.handleChange('firstname')}
+          margin="normal"
+        />
+        <TextField
+          required
+          id="mail"
+          label="Mél"
+          value={this.state.firstname}
+          onChange={this.handleChange('mail')}
           className={classes.textField}
           margin="normal"
         />
         <TextField
           required
-          id="required"
-          label="Required"
-          defaultValue="Hello World"
+          id="phoneNumber"
+          label="Numéro de téléphone"
+          value={this.state.firstname}
           className={classes.textField}
           margin="normal"
         />
         <TextField
-          error
-          id="error"
-          label="Error"
-          defaultValue="Hello World"
+          required
+          id="msg"
+          label="Message"
+          value={this.state.firstname}
           className={classes.textField}
-          margin="normal"
-        />
-        <TextField
-          id="password"
-          label="Password"
-          className={classes.textField}
-          type="password"
-          autoComplete="current-password"
-          margin="normal"
-        />
-        <TextField
-          id="multiline-flexible"
-          label="Multiline"
-          multiline
-          rowsMax="4"
-          value={this.state.multiline}
-          onChange={this.handleChange('multiline')}
-          className={classes.textField}
-          margin="normal"
-        />
-        <TextField
-          id="multiline-static"
-          label="Multiline"
-          multiline
-          rows="4"
-          defaultValue="Default Value"
-          className={classes.textField}
-          margin="normal"
-        />
-        <TextField
-          id="helperText"
-          label="Helper text"
-          defaultValue="Default Value"
-          className={classes.textField}
-          helperText="Some important text"
-          margin="normal"
-        />
-        <TextField
-          id="with-placeholder"
-          label="With placeholder"
-          placeholder="Placeholder"
-          className={classes.textField}
-          margin="normal"
-        />
-        <TextField
-          id="textarea"
-          label="With placeholder multiline"
-          placeholder="Placeholder"
-          multiline
-          className={classes.textField}
-          margin="normal"
-        />
-        <TextField
-          id="number"
-          label="Number"
-          value={this.state.age}
-          onChange={this.handleChange('age')}
-          type="number"
-          className={classes.textField}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          margin="normal"
-        />
-        <TextField
-          id="search"
-          label="Search field"
-          type="search"
-          className={classes.textField}
-          margin="normal"
-        />
-        <TextField
-          id="select-currency"
-          select
-          label="Select"
-          className={classes.textField}
-          value={this.state.currency}
-          onChange={this.handleChange('currency')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          helperText="Please select your currency"
-          margin="normal"
-        >
-          {currencies.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          id="select-currency-native"
-          select
-          label="Native select"
-          className={classes.textField}
-          value={this.state.currency}
-          onChange={this.handleChange('currency')}
-          SelectProps={{
-            native: true,
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          helperText="Please select your currency"
-          margin="normal"
-        >
-          {currencies.map(option => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </TextField>
-        <TextField
-          id="full-width"
-          label="Label"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          placeholder="Placeholder"
-          helperText="Full width!"
-          fullWidth
           margin="normal"
         />
       </form>   
