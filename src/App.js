@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Button, AppBar, Toolbar, Typography} from 'material-ui'
-//import d'un caroussel à l'aide d'un paquet npm (rapide ~2min)
-import {Carousel} from 'react-responsive-carousel'
-//besoin d'ajouter le css en plus
-import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import {AppBar, Toolbar, Typography, Grid} from 'material-ui'
+import {CarouselContainer, Form} from './Common'
+
 
 
 class App extends Component {
   render() {
+    const theme = createMuiTheme();
     return (
       // Menu
       //joke => Ajax   (Champs texte, bouton refresh)
       //Caroussel (image => ajax)
-      <div>
+      <div >
+			<MuiThemeProvider theme={theme}>
 
         <AppBar position="static" color="default">
           <Toolbar>
@@ -23,41 +24,22 @@ class App extends Component {
           </Toolbar>
         </AppBar>
 
-        {/* on démarre notre caroussel ici    je t'explique pourquoi les commentaires son bizarre dans la journée si tu veux ou ce soir */}
-        <Carousel showArrows={true}>
-        {/* Tu peux voir une répétition de code pour les différentes images */}
-        <div>
-            <img alt="random pic" src="https://picsum.photos/500/300/?random" />
-            <p className="legend">Legend 1</p>
-        </div>
-        {/* Normalement on crée un composant (image par exemple pour faciliter la gestion du code #SingleSourceOfTruth) */}
-        <div>
-            <img src="https://picsum.photos/500/300/?random" />
-            <p className="legend">Legend 2</p>
-        </div>
-        <div>
-            <img src="https://picsum.photos/500/300/?random" />
-            <p className="legend">Legend 3</p>
-        </div>
-        <div>
-            <img src="https://picsum.photos/500/300/?random" />
-            <p className="legend">Legend 4</p>
-        </div>
-        <div>
-            <img src="https://picsum.photos/500/300/?random" />
-            <p className="legend">Legend 5</p>
-        </div>
-        <div>
-            <img src="https://picsum.photos/500/300/?random" />
-            <p className="legend">Legend 6</p>
-        </div>
-      </Carousel>
+        <Grid container spacing={40} alignItems="center" direction="row" justify="center">
+          <Grid item xs={12} sm={10}>
+            <CarouselContainer/>
+          </Grid>
+        </Grid>
 
-        <Button raised color='primary'>
-          yolo bite
-        </Button>
+        <Grid container spacing={40} alignItems="center" direction="row" justify="center">
+          <Grid item xs={12} sm={10}>
+            <Form/>
+          </Grid>
+        </Grid>
+
+      </MuiThemeProvider>
+
       </div>
-      //footer
+      
     );
   }
 }
