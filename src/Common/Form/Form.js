@@ -30,7 +30,7 @@ class Form extends Component {
             mail: '',
             phoneNumber: '',
             msg: '',
-            date: '',
+            birthday: '',
         }
     }
 
@@ -40,8 +40,8 @@ class Form extends Component {
         });
       };
 
-      handleDateChange = (date) => {
-        this.setState({ date });
+      handleDateChange = (birthday) => {
+        this.setState({ birthday });
       }
 
     render() {

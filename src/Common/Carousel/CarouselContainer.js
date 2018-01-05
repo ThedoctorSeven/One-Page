@@ -21,7 +21,7 @@ class CarouselContainer extends Component {
     loadImagesPath() {
         fetch("https://picsum.photos/list").then(resp => resp.json()).then(
             images => {
-                const showImages = []
+                let showImages = []
                 for(let i = 0; i < 5; i++) showImages.push(images[Math.floor(Math.random()*images.length)])
                 this.setState({images, showImages})
             } 
@@ -52,9 +52,9 @@ class CarouselContainer extends Component {
         <Card>
         <CardContent>
         <Carousel
-            showArrows={true}
-            autoPlay={true}
-            infiniteLoop={true}
+            showArrows
+            autoPlay
+            infiniteLoop
         >
             {showImages.map( image => {
                 return <ImgCarousel
