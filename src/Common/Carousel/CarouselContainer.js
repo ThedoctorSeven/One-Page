@@ -1,69 +1,66 @@
-import React, { Component } from 'react';
-import {Carousel} from 'react-responsive-carousel'
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import {Button, Card, CardActions, CardContent } from 'material-ui'
-import ImgCarousel from './imgCarousel/ImgCarousel'
+import React, { Component } from "react";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Button, Card, CardActions, CardContent } from "material-ui";
+import ImgCarousel from "./imgCarousel/ImgCarousel";
 
 class CarouselContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      images: [],
+      showImages: []
+    };
+  }
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            images: [],
-            showImages: [],
-        }
-    }
-    
-    componentDidMount() {
-        this.loadImagesPath()
-    }
+  componentDidMount() {
+    this.loadImagesPath();
+  }
 
-    loadImagesPath() {
-        fetch("https://picsum.photos/list").then(resp => resp.json()).then(
-            images => {
-                let showImages = []
-                for(let i = 0; i < 5; i++) showImages.push(images[Math.floor(Math.random()*images.length)])
-                this.setState({images, showImages})
-            } 
-        )
-    }
+  loadImagesPath() {
+    fetch("https://picsum.photos/list")
+      .then(resp => resp.json())
+      .then(images => {
+        let showImages = [];
+        for (let i = 0; i < 5; i++)
+          showImages.push(images[Math.floor(Math.random() * images.length)]);
+        this.setState({ images, showImages });
+      });
+  }
 
-    selectPic = () => {
-        const {images} = this.state
-        return images[Math.floor(Math.random()*images.length)];
-    }
+  selectPic = () => {
+    const { images } = this.state;
+    return images[Math.floor(Math.random() * images.length)];
+  };
 
-    addPic = () => {
-        const {showImages} = this.state
-        showImages.push(this.selectPic())        
-        this.setState({showImages})
-    }
+  addPic = () => {
+    const { showImages } = this.state;
+    showImages.push(this.selectPic());
+    this.setState({ showImages });
+  };
 
-    removePic = () => {
-        const {showImages} = this.state
-        showImages.pop()        
-        this.setState({showImages})
-    }
-
+  removePic = () => {
+    const { showImages } = this.state;
+    showImages.pop();
+    this.setState({ showImages });
+  };
 
   render() {
-      const {showImages} = this.state
+    const { showImages } = this.state;
     return (
-        <Card>
+      <Card>
         <CardContent>
-        <Carousel
-            showArrows
-            autoPlay
-            infiniteLoop
-        >
-            {showImages.map( image => {
-                return <ImgCarousel
-                    alt={image.author}
-                    legend={`Auteur: ${image.author}`}
-                    src={"https://picsum.photos/500/300?image=" + image.id}
+          <Carousel showArrows autoPlay infiniteLoop>
+            {showImages.map(image => {
+              return (
+                <ImgCarousel
+                  alt={image.author}
+                  legend={`Auteur: ${image.author}`}
+                  src={"https://picsum.photos/500/300?image=" + image.id}
                 />
+              );
             })}
-        </Carousel>        
+          </Carousel>
         </CardContent>
         <CardActions>
           <Button onClick={this.addPic} raised color="primary">
@@ -73,10 +70,9 @@ class CarouselContainer extends Component {
             Enlever une photo
           </Button>
         </CardActions>
-        </Card>
-        
+      </Card>
     );
   }
 }
 
-export default CarouselContainer
+export default CarouselContainer;

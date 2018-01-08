@@ -1,1 +1,1 @@
-export {default as CarouselContainer} from './CarouselContainer'
+export { default as CarouselContainer } from "./CarouselContainer";
