@@ -12,10 +12,10 @@ class Map extends Component {
         <Card>
             <CardHeader
             title="Map"
-            subheader="Tous les champs doivent être valide pour envoyer un message"
+            subheader="La carte drevrait s'afficher ici"
           />
         <CardContent>
-          <div>La carte bordel de merde</div>
+          <div>Ici se trouve la Carte</div>
         </CardContent>
         </Card>
     )}

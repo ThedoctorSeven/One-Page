@@ -19,7 +19,7 @@ class App extends Component {
         <AppBar position="static" color="default">
           <Toolbar>
             <Typography type="title" color="inherit">
-              Ma couille
+              One Page
             </Typography>
           </Toolbar>
         </AppBar>
