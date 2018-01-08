@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Card, CardContent, CardHeader} from 'material-ui'
+import {map} from 'react-google-maps'
 
 class Map extends Component {
     constructor(props) {
@@ -12,7 +13,6 @@ class Map extends Component {
         <Card>
             <CardHeader
             title="Map"
-            subheader="La carte drevrait s'afficher ici"
           />
         <CardContent>
           <div>Ici se trouve la Carte</div>
