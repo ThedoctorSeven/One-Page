@@ -12,8 +12,8 @@ import {
 // il vaut mieux déclarer le const en dehors de la fonction render (plus perf)
 const MapWithAMarker = withScriptjs(
   withGoogleMap(props => (
-    <GoogleMap defaultZoom={8} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
-      <Marker position={{ lat: -34.397, lng: 150.644 }} />
+    <GoogleMap defaultZoom={9} defaultCenter={{ lat: 48.4, lng: -4.48333 }}>
+      <Marker position={{ lat: 48.4, lng: -4.48333 }} />
     </GoogleMap>
   ))
 );

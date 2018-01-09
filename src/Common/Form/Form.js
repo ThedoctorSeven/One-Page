@@ -10,8 +10,10 @@ import {
   Icon
 } from "material-ui";
 import { DatePicker } from "material-ui-pickers";
-import moment from "moment";
+import moment, { min, max } from "moment";
 import PropTypes from "prop-types";
+import simpleJoi from "joi";
+const Joi = simpleJoi.extend(require("joi-phone-number"));
 
 const styles = theme => ({
   container: {
@@ -26,6 +28,33 @@ const styles = theme => ({
   menu: {
     width: 200
   }
+});
+
+const schema = Joi.object().keys({
+  name: Joi.string()
+    .alphanum()
+    .min(3)
+    .max(30)
+    .required(),
+  firstname: Joi.string()
+    .alphanum()
+    .min(2)
+    .max(30)
+    .required(),
+  mail: Joi.string().email(),
+  phoneNumber: Joi.string()
+    .phoneNumber()
+    .required(),
+  msg: Joi.string()
+    .alphanum()
+    .min(5)
+    .max(500)
+    .required()
+  // birthday: Joi.number()
+  //   .integer()
+  //   .min(1900)
+  //   .max(2000)
+  //   .required()
 });
 
 class Form extends Component {
@@ -49,6 +78,14 @@ class Form extends Component {
 
   handleDateChange = birthday => {
     this.setState({ birthday });
+  };
+
+  onSubmit = () => {
+    // console.log(this.state);
+    // console.log(schema);
+    const result = Joi.validate(this.state, schema);
+    // const result = Joi.validate();
+    console.log(result);
   };
 
   render() {
@@ -91,8 +128,8 @@ class Form extends Component {
             <TextField
               required
               id="mail"
-              label="Mél"
-              value={this.state.firstname}
+              label="E-mail"
+              value={this.state.mail}
               onChange={this.handleChange("mail")}
               className={classes.textField}
               margin="normal"
@@ -101,7 +138,8 @@ class Form extends Component {
               required
               id="phoneNumber"
               label="Numéro de téléphone"
-              value={this.state.firstname}
+              value={this.state.phoneNumber}
+              onChange={this.handleChange("phoneNumber")}
               className={classes.textField}
               margin="normal"
             />
@@ -109,14 +147,15 @@ class Form extends Component {
               required
               id="msg"
               label="Message"
-              value={this.state.firstname}
+              value={this.state.msg}
+              onChange={this.handleChange("msg")}
               className={classes.textField}
               margin="normal"
             />
           </form>
         </CardContent>
         <CardActions>
-          <Button raised color="primary">
+          <Button onClick={this.onSubmit} raised color="primary">
             Envoyer
           </Button>
         </CardActions>
