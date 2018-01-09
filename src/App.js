@@ -24,7 +24,7 @@ class App extends Component {
                 One Page
               </Typography>
               <Button onClick={() => this.scroll("map")} raised color="primary">
-                Ajouter une photo
+                ->
               </Button>
             </Toolbar>
           </AppBar>
@@ -36,13 +36,13 @@ class App extends Component {
             direction="row"
             justify="center"
           >
-            <Grid item xs={12} sm={10}>
+            <Grid item xs={12} sm={10} xl={10}>
               <CarouselContainer />
             </Grid>
-            <Grid item xs={12} sm={10}>
+            <Grid item xs={12} sm={10} xl={10}>
               <Form />
             </Grid>
-            <Grid item xs={12} id="map">
+            <Grid item xs={12} sm={10} xl={10} id="map">
               <Map />
             </Grid>
           </Grid>
