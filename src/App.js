@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
-import { AppBar, Toolbar, Typography, Grid } from "material-ui";
-import { CarouselContainer, Form, Map } from "./Common";
-import "./index.css"
+import { AppBar, Toolbar, Typography, Grid, Button } from "material-ui";
+import { CarouselContainer, Form, Map, Panel, Joke } from "./Common";
+import "./index.css";
 import smoothscroll from "smoothscroll";
 
 class App extends Component {
@@ -39,12 +39,19 @@ class App extends Component {
           >
             <Grid item xs={12} sm={10} xl={10}>
               <CarouselContainer />
+              <Panel text="yolo" title="yolo" />
             </Grid>
             <Grid item xs={12} sm={10} xl={10}>
               <Form />
+              <Panel text="bite" title="chat" />
+            </Grid>
+            <Grid item xs={12} sm={10} xl={10}>
+              <Joke />
+              <Panel text="bite" title="chat" />
             </Grid>
             <Grid item xs={12} sm={10} xl={10} id="map">
               <Map />
+              <Panel text="bite" title="chat" />
             </Grid>
           </Grid>
         </MuiThemeProvider>
