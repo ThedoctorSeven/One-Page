@@ -3,6 +3,7 @@ import "./App.css";
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
 import { AppBar, Toolbar, Typography, Grid } from "material-ui";
 import { CarouselContainer, Form, Map } from "./Common";
+import "./index.css"
 
 class App extends Component {
   render() {
@@ -13,7 +14,7 @@ class App extends Component {
       //Caroussel (image => ajax)
       <div>
         <MuiThemeProvider theme={theme}>
-          <AppBar position="static" color="default">
+          <AppBar className="appBar" position="static" color="default">
             <Toolbar>
               <Typography type="title" color="inherit">
                 One Page
