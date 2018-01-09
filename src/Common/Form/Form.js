@@ -106,7 +106,7 @@ class Form extends Component {
               id="phoneNumber"
               label="Numéro de téléphone"
               value={this.state.phoneNumber}
-              onChange={this.handleChange("phonenumber")}
+              onChange={this.handleChange("phoneNumber")}
               className={classes.textField}
               margin="normal"
             />
