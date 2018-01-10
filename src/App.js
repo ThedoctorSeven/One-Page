@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import PropTypes from 'prop-types';
 import { withStyles } from "material-ui/styles";
-import { AppBar, Toolbar, Typography, Grid, Button, IconButton } from "material-ui";
+import { AppBar, Toolbar, Typography, Grid, IconButton } from "material-ui";
 import ViewCarousel from "material-ui-icons/ViewCarousel";
 import QuestionAnswer from "material-ui-icons/QuestionAnswer";
 import { CarouselContainer, Form, Map, Panel, Joke } from "./Common";
