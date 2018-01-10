@@ -56,7 +56,7 @@ class CarouselContainer extends Component {
                 <ImgCarousel
                   alt={image.author}
                   legend={`Auteur: ${image.author}`}
-                  src={"https://picsum.photos/500/300?image=" + image.id}
+                  src={"https://picsum.photos/1000/600?image=" + image.id}
                 />
               );
             })}

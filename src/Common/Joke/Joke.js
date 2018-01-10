@@ -33,14 +33,22 @@ class Joke extends Component {
     };
   }
 
+  componentDidMount() {
+    this.loadJoke();
+  }
+
   loadJoke = () => {
-    let xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest(),
+      that = this;
     xhr.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        this.setState({ joke: this.responseText });
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        const obj = that;
+        const resp = JSON.parse(xhr.responseText);
+        const joke = resp.value;
+        obj.setState({ joke });
       }
     };
-    xhr.open("GET", ": https://api.chucknorris.io/jokes/random", true);
+    xhr.open("GET", "https://api.chucknorris.io/jokes/random", true);
     xhr.send();
   };
 
@@ -51,12 +59,11 @@ class Joke extends Component {
       <div>
         <Card className={classes.card}>
           <CardContent>
-            <Typography className={classes.pos}>Joke</Typography>
             <Typography component="p">{joke}</Typography>
           </CardContent>
           <CardActions>
             <Button dense onClick={this.loadJoke}>
-              Learn More
+              Suivant
             </Button>
           </CardActions>
         </Card>
