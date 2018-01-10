@@ -5,6 +5,7 @@ import ExpansionPanel, {
 } from "material-ui/ExpansionPanel";
 import Typography from "material-ui/Typography";
 import ExpandMoreIcon from "material-ui-icons/ExpandMore";
+import renderHTML from "react-render-html";
 
 class Panel extends Component {
   render() {
@@ -15,7 +16,7 @@ class Panel extends Component {
           <Typography>{title}</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Typography>{text}</Typography>
+          <Typography>{renderHTML(text)}</Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     );

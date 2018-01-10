@@ -36,23 +36,22 @@ class Joke extends Component {
   componentDidMount() {
     this.loadJoke();
   }
-  
+
   loadJoke = () => {
-    let xhr = new XMLHttpRequest(), that = this;
+    let xhr = new XMLHttpRequest(),
+      that = this;
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
-        const obj = that
-        const resp = JSON.parse(xhr.responseText)
-        const joke = resp.value
-        obj.setState({joke})
+        const obj = that;
+        const resp = JSON.parse(xhr.responseText);
+        const joke = resp.value;
+        obj.setState({ joke });
       }
-      
     };
     xhr.open("GET", "https://api.chucknorris.io/jokes/random", true);
     xhr.send();
   };
-  
-  
+
   render() {
     const { classes } = this.props;
     const { joke } = this.state; // => const joke = this.state.joke
@@ -60,12 +59,11 @@ class Joke extends Component {
       <div>
         <Card className={classes.card}>
           <CardContent>
-            <Typography className={classes.pos}>Joke</Typography>
             <Typography component="p">{joke}</Typography>
           </CardContent>
           <CardActions>
             <Button dense onClick={this.loadJoke}>
-              Charger une blague
+              Suivant
             </Button>
           </CardActions>
         </Card>

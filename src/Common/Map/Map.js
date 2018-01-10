@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardContent, CardHeader } from "material-ui";
+import { Card, CardContent } from "material-ui";
 import {
   withScriptjs,
   withGoogleMap,

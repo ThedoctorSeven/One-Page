@@ -9,8 +9,8 @@ import {
   withStyles
 } from "material-ui";
 import { DatePicker } from "material-ui-pickers";
-import moment, { min, max } from "moment";
-import 'moment/locale/fr';
+import moment from "moment";
+import "moment/locale/fr";
 import PropTypes from "prop-types";
 import simpleJoi from "joi";
 const Joi = simpleJoi.extend(require("joi-phone-number"));
@@ -32,7 +32,7 @@ const styles = theme => ({
   }
 });
 
-moment.locale('fr')
+moment.locale("fr");
 
 class Form extends Component {
   constructor(props) {
@@ -44,57 +44,85 @@ class Form extends Component {
         mail: "",
         phoneNumber: "",
         msg: "",
-        birthday: null,
+        birthday: null
       },
-      validation:{
-        name: Joi.string().min(1).max(30).required(),
-        firstname: Joi.string().min(1).max(30).required(),
+      validation: {
+        name: Joi.string()
+          .min(2)
+          .max(30)
+          .required(),
+        firstname: Joi.string()
+          .min(2)
+          .max(30)
+          .required(),
         mail: Joi.string().email(),
-        phoneNumber: Joi.string().phoneNumber().required(),
-        msg: Joi.string().alphanum().min(5).max(500).required(),
-        birthday: Joi.date().max('now'),
+        phoneNumber: Joi.string()
+          .phoneNumber()
+          .required(),
+        msg: Joi.string()
+          .min(5)
+          .max(500)
+          .required(),
+        birthday: Joi.date().max("now")
       },
-      errorMsg:{
+      errorMsg: {
         name: "",
         firstname: "",
         mail: "",
         phoneNumber: "",
         msg: "",
-        birthday: "",
+        birthday: ""
       }
     };
   }
 
   handleChange = name => event => {
-    const {form} = this.state
+    const { form } = this.state;
     this.setState({
-      form: {...form, [name]: event.target.value} // ...form => copie colle tout ce qu'il y a à l'intérieur de form
-      //name: "", firstname: "", mail: "", phoneNumber: "", msg: "", birthday: "", // => puis on ajoute la nouvelle valeur qui va écrasé la précédente déclaré
-      // en gros on fait => nom:"toto", prenom:"whatever", nom:"Henry"  Ce qui nous sort {nom:"Henry, prenom:"whatever"}
-      //et ce nouvelle objet on le met dans form
+      form: { ...form, [name]: event.target.value }
     });
+    // ...form => copie colle tout ce qu'il y a à l'intérieur de form
+    //name: "", firstname: "", mail: "", phoneNumber: "", msg: "", birthday: "", // => puis on ajoute la nouvelle valeur qui va écrasé la précédente déclaré
+    // en gros on fait => nom:"toto", prenom:"whatever", nom:"Henry"  Ce qui nous sort {nom:"Henry, prenom:"whatever"}
+    //et ce nouvelle objet on le met dans form
   };
-  
-  handleDateChange = (birthday) => {
-    const {form, validation} = this.state
-    const test = Joi.validate(birthday.toDate(), validation["birthday"]) // do something with that
-    this.setState({ form: {...form, birthday: birthday }});
+
+  handleDateChange = birthday => {
+    const { form, validation, errorMsg } = this.state;
+    const test = Joi.validate(birthday.toDate(), validation["birthday"]); // do something with that
+    console.log(test);
+    this.setState({
+      form: { ...form, birthday: birthday },
+      errorMsg: { ...errorMsg, birthday: test.error }
+    });
   };
 
   validateVal = name => event => {
-    const {validation} = this.state
-    const test = Joi.validate(event.target.value, validation[name]) // do something with that
-  }
+    const { validation, errorMsg } = this.state;
+    const test = Joi.validate(event.target.value, validation[name]); // do something with that
+    this.setState({
+      errorMsg: { ...errorMsg, [name]: test.error }
+    });
+  };
 
   onSubmit = () => {
-    const result = Joi.validate(this.state.form, Joi.object({...this.state.validation}));
-    if(!result.error) alert("all good")
-    else alert("Des Erreurs ont eu lieu")
+    let data = null;
+    if (!this.state.form.birthday) data = this.state.form;
+    else {
+      data = {
+        ...this.state.form,
+        birthday: this.state.form.birthday.toDate()
+      };
+    }
+    const result = Joi.validate(data, Joi.object({ ...this.state.validation }));
+    console.log(result, result.value);
+    if (!result.error) alert("Tout va bien");
+    else alert("Des erreurs on été relevées dans le formulaire");
   };
 
   render() {
     const { classes } = this.props;
-    const {form, validation} = this.state
+    const { form, errorMsg } = this.state;
     return (
       <Card>
         <CardHeader
@@ -106,7 +134,7 @@ class Form extends Component {
             <DatePicker
               clearable
               required
-              error
+              error={!!errorMsg.birthday}
               openToYearSelection
               label="Naissance"
               okLabel={"Valider"}
@@ -120,6 +148,7 @@ class Form extends Component {
               animateYearScrolling={false}
             />
             <TextField
+              error={!!errorMsg.name}
               required
               id="name"
               label="Nom"
@@ -130,6 +159,7 @@ class Form extends Component {
               margin="normal"
             />
             <TextField
+              error={!!errorMsg.firstname}
               required
               id="firstname"
               label="Prénom"
@@ -140,6 +170,7 @@ class Form extends Component {
               margin="normal"
             />
             <TextField
+              error={!!errorMsg.mail}
               required
               type="email"
               id="mail"
@@ -151,6 +182,7 @@ class Form extends Component {
               margin="normal"
             />
             <TextField
+              error={!!errorMsg.phoneNumber}
               required
               type="tel"
               id="phoneNumber"
@@ -162,6 +194,8 @@ class Form extends Component {
               margin="normal"
             />
             <TextField
+              multiline
+              error={!!errorMsg.msg}
               required
               id="msg"
               label="Message"
