@@ -40,7 +40,7 @@ class Joke extends Component {
   loadJoke = () => {
     let xhr = new XMLHttpRequest(), that = this;
     xhr.onreadystatechange = function() {
-      if (xhr.readyState == 4 && xhr.status == 200) {
+      if (xhr.readyState === 4 && xhr.status === 200) {
         const obj = that
         const resp = JSON.parse(xhr.responseText)
         const joke = resp.value
