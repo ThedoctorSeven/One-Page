@@ -1,10 +1,29 @@
 import React, { Component } from "react";
 import "./App.css";
-import { MuiThemeProvider, createMuiTheme } from "material-ui/styles";
-import { AppBar, Toolbar, Typography, Grid, Button } from "material-ui";
+import PropTypes from 'prop-types';
+import { withStyles } from "material-ui/styles";
+import { AppBar, Toolbar, Typography, Grid, Button, IconButton } from "material-ui";
+import ViewCarousel from "material-ui-icons/ViewCarousel";
+import QuestionAnswer from "material-ui-icons/QuestionAnswer";
 import { CarouselContainer, Form, Map, Panel, Joke } from "./Common";
 import "./index.css";
 import smoothscroll from "smoothscroll";
+
+const styles = {
+  root: {
+    width: '100%',
+  },
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+  page:{
+    marginTop: 85
+  }
+};
 
 class App extends Component {
   scroll = id => {
@@ -12,21 +31,29 @@ class App extends Component {
   };
 
   render() {
-    const theme = createMuiTheme();
+    const { classes } = this.props;
     return (
       // Menu
       //joke => Ajax   (Champs texte, bouton refresh)
       //Caroussel (image => ajax)
-      <div>
-        <MuiThemeProvider theme={theme}>
-          <AppBar className="appBar" position="static" color="default">
+      <div className={classes.page}>
+          <AppBar className="appBar" position="fixed" color="primary">
             <Toolbar>
-              <Typography type="title" color="inherit">
-                One Page
+              <Typography  className={classes.flex} type="title" color="inherit">
+                Bryan Motta
               </Typography>
-              <Button onClick={() => this.scroll("map")} raised color="primary">
-                ->
-              </Button>
+                <IconButton color="accent" onClick={() => this.scroll("carousel")} className={classes.menuButton} color="contrast" aria-label="Carousel">
+                  <ViewCarousel />
+                </IconButton>
+                <IconButton color="accent" onClick={() => this.scroll("form")} className={classes.menuButton} color="contrast" aria-label="Carousel">
+                  <QuestionAnswer />
+                </IconButton>
+                <IconButton color="accent" onClick={() => this.scroll("joke")} className={classes.menuButton} color="contrast" aria-label="Carousel">
+                  <ViewCarousel />
+                </IconButton>
+                <IconButton color="accent" onClick={() => this.scroll("map")} className={classes.menuButton} color="contrast" aria-label="Carousel">
+                  <ViewCarousel />
+                </IconButton>
             </Toolbar>
           </AppBar>
 
@@ -37,15 +64,15 @@ class App extends Component {
             direction="row"
             justify="center"
           >
-            <Grid item xs={12} sm={10} xl={10}>
+            <Grid item xs={12} sm={10} xl={10} id="carousel">
               <CarouselContainer />
               <Panel text="yolo" title="yolo" />
             </Grid>
-            <Grid item xs={12} sm={10} xl={10}>
+            <Grid item xs={12} sm={10} xl={10} id="form">
               <Form />
               <Panel text="bite" title="chat" />
             </Grid>
-            <Grid item xs={12} sm={10} xl={10}>
+            <Grid item xs={12} sm={10} xl={10} id="joke">
               <Joke />
               <Panel text="bite" title="chat" />
             </Grid>
@@ -54,10 +81,14 @@ class App extends Component {
               <Panel text="bite" title="chat" />
             </Grid>
           </Grid>
-        </MuiThemeProvider>
       </div>
     );
   }
 }
 
-export default App;
+
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(App);

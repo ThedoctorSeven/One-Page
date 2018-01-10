@@ -23,6 +23,8 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
+    marginTop: 16,
+    marginBottom: 8,
     width: 200
   },
   menu: {
@@ -61,35 +63,41 @@ class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      firstname: "",
-      mail: "",
-      phoneNumber: "",
-      msg: "",
-      birthday: ""
+      form: {
+        name: "",
+        firstname: "",
+        mail: "",
+        phoneNumber: "",
+        msg: "",
+        birthday: "",
+      },
+      error: []
     };
   }
 
   handleChange = name => event => {
+    const {form} = this.state
     this.setState({
-      [name]: event.target.value
+      form: {...form, [name]: event.target.value}
     });
   };
 
-  handleDateChange = birthday => {
-    this.setState({ birthday });
+  handleDateChange = (birthday) => {
+    const {form} = this.state
+    this.setState({ form: {...form, birthday: birthday }});
   };
 
   onSubmit = () => {
-    // console.log(this.state);
+    console.log(this.state.form);
     // console.log(schema);
-    const result = Joi.validate(this.state, schema);
+    const result = Joi.validate(this.state.form, schema);
     // const result = Joi.validate();
     console.log(result);
   };
 
   render() {
     const { classes } = this.props;
+    const { form } = this.state;
 
     return (
       <Card>
@@ -98,12 +106,13 @@ class Form extends Component {
           subheader="Tous les champs doivent être valide pour envoyer un message"
         />
         <CardContent>
-          <form className={classes.container} noValidate autoComplete="off">
+          <form onSubmit={this.onSubmit} className={classes.container}>
             <DatePicker
               keyboard
               clearable
+              type="date"
               className={classes.textField}
-              // value={selectedDate}
+              value={form.birthday}
               onChange={this.handleDateChange}
               animateYearScrolling={false}
             />
@@ -112,7 +121,7 @@ class Form extends Component {
               id="name"
               label="Nom"
               className={classes.textField}
-              value={this.state.name}
+              value={form.name}
               onChange={this.handleChange("name")}
               margin="normal"
             />
@@ -121,24 +130,26 @@ class Form extends Component {
               id="firstname"
               label="Prénom"
               className={classes.textField}
-              value={this.state.firstname}
+              value={form.firstname}
               onChange={this.handleChange("firstname")}
               margin="normal"
             />
             <TextField
               required
+              type="email"
               id="mail"
               label="E-mail"
-              value={this.state.mail}
+              value={form.mail}
               onChange={this.handleChange("mail")}
               className={classes.textField}
               margin="normal"
             />
             <TextField
               required
+              type="tel"
               id="phoneNumber"
               label="Numéro de téléphone"
-              value={this.state.phoneNumber}
+              value={form.phoneNumber}
               onChange={this.handleChange("phoneNumber")}
               className={classes.textField}
               margin="normal"
@@ -147,7 +158,7 @@ class Form extends Component {
               required
               id="msg"
               label="Message"
-              value={this.state.msg}
+              value={form.msg}
               onChange={this.handleChange("msg")}
               className={classes.textField}
               margin="normal"
@@ -155,7 +166,7 @@ class Form extends Component {
           </form>
         </CardContent>
         <CardActions>
-          <Button onClick={this.onSubmit} raised color="primary">
+          <Button raised color="primary">
             Envoyer
           </Button>
         </CardActions>
