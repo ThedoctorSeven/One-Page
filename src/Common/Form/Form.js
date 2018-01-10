@@ -6,11 +6,11 @@ import {
   CardContent,
   CardHeader,
   TextField,
-  withStyles,
-  Icon
+  withStyles
 } from "material-ui";
 import { DatePicker } from "material-ui-pickers";
 import moment, { min, max } from "moment";
+import 'moment/locale/fr';
 import PropTypes from "prop-types";
 import simpleJoi from "joi";
 const Joi = simpleJoi.extend(require("joi-phone-number"));
@@ -32,32 +32,7 @@ const styles = theme => ({
   }
 });
 
-const schema = Joi.object().keys({
-  name: Joi.string()
-    .alphanum()
-    .min(3)
-    .max(30)
-    .required(),
-  firstname: Joi.string()
-    .alphanum()
-    .min(2)
-    .max(30)
-    .required(),
-  mail: Joi.string().email(),
-  phoneNumber: Joi.string()
-    .phoneNumber()
-    .required(),
-  msg: Joi.string()
-    .alphanum()
-    .min(5)
-    .max(500)
-    .required()
-  // birthday: Joi.number()
-  //   .integer()
-  //   .min(1900)
-  //   .max(2000)
-  //   .required()
-});
+moment.locale('fr')
 
 class Form extends Component {
   constructor(props) {
@@ -69,36 +44,57 @@ class Form extends Component {
         mail: "",
         phoneNumber: "",
         msg: "",
-        birthday: "",
+        birthday: null,
       },
-      error: []
+      validation:{
+        name: Joi.string().min(1).max(30).required(),
+        firstname: Joi.string().min(1).max(30).required(),
+        mail: Joi.string().email(),
+        phoneNumber: Joi.string().phoneNumber().required(),
+        msg: Joi.string().alphanum().min(5).max(500).required(),
+        birthday: Joi.date().max('now'),
+      },
+      errorMsg:{
+        name: "",
+        firstname: "",
+        mail: "",
+        phoneNumber: "",
+        msg: "",
+        birthday: "",
+      }
     };
   }
 
   handleChange = name => event => {
     const {form} = this.state
     this.setState({
-      form: {...form, [name]: event.target.value}
+      form: {...form, [name]: event.target.value} // ...form => copie colle tout ce qu'il y a à l'intérieur de form
+      //name: "", firstname: "", mail: "", phoneNumber: "", msg: "", birthday: "", // => puis on ajoute la nouvelle valeur qui va écrasé la précédente déclaré
+      // en gros on fait => nom:"toto", prenom:"whatever", nom:"Henry"  Ce qui nous sort {nom:"Henry, prenom:"whatever"}
+      //et ce nouvelle objet on le met dans form
     });
   };
-
+  
   handleDateChange = (birthday) => {
-    const {form} = this.state
+    const {form, validation} = this.state
+    const test = Joi.validate(birthday.toDate(), validation["birthday"]) // do something with that
     this.setState({ form: {...form, birthday: birthday }});
   };
 
+  validateVal = name => event => {
+    const {validation} = this.state
+    const test = Joi.validate(event.target.value, validation[name]) // do something with that
+  }
+
   onSubmit = () => {
-    console.log(this.state.form);
-    // console.log(schema);
-    const result = Joi.validate(this.state.form, schema);
-    // const result = Joi.validate();
-    console.log(result);
+    const result = Joi.validate(this.state.form, Joi.object({...this.state.validation}));
+    if(!result.error) alert("all good")
+    else alert("Des Erreurs ont eu lieu")
   };
 
   render() {
     const { classes } = this.props;
-    const { form } = this.state;
-
+    const {form, validation} = this.state
     return (
       <Card>
         <CardHeader
@@ -106,14 +102,21 @@ class Form extends Component {
           subheader="Tous les champs doivent être valide pour envoyer un message"
         />
         <CardContent>
-          <form onSubmit={this.onSubmit} className={classes.container}>
+          <form className={classes.container}>
             <DatePicker
-              keyboard
               clearable
-              type="date"
+              required
+              error
+              openToYearSelection
+              label="Naissance"
+              okLabel={"Valider"}
+              cancelLabel={"Annuler"}
+              clearLabel={"Vider"}
+              format={"dddd D MMM YYYY"}
               className={classes.textField}
               value={form.birthday}
               onChange={this.handleDateChange}
+              onBlur={this.validateVal("birthday")}
               animateYearScrolling={false}
             />
             <TextField
@@ -123,6 +126,7 @@ class Form extends Component {
               className={classes.textField}
               value={form.name}
               onChange={this.handleChange("name")}
+              onBlur={this.validateVal("name")}
               margin="normal"
             />
             <TextField
@@ -132,6 +136,7 @@ class Form extends Component {
               className={classes.textField}
               value={form.firstname}
               onChange={this.handleChange("firstname")}
+              onBlur={this.validateVal("firstname")}
               margin="normal"
             />
             <TextField
@@ -142,6 +147,7 @@ class Form extends Component {
               value={form.mail}
               onChange={this.handleChange("mail")}
               className={classes.textField}
+              onBlur={this.validateVal("mail")}
               margin="normal"
             />
             <TextField
@@ -152,6 +158,7 @@ class Form extends Component {
               value={form.phoneNumber}
               onChange={this.handleChange("phoneNumber")}
               className={classes.textField}
+              onBlur={this.validateVal("phoneNumber")}
               margin="normal"
             />
             <TextField
@@ -161,12 +168,13 @@ class Form extends Component {
               value={form.msg}
               onChange={this.handleChange("msg")}
               className={classes.textField}
+              onBlur={this.validateVal("msg")}
               margin="normal"
             />
           </form>
         </CardContent>
         <CardActions>
-          <Button raised color="primary">
+          <Button onClick={this.onSubmit} raised color="primary">
             Envoyer
           </Button>
         </CardActions>
