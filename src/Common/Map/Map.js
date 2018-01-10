@@ -24,7 +24,6 @@ class Map extends Component {
   render() {
     return (
       <Card>
-        <CardHeader title="Map" />
         <CardContent>
           {/* Je met ici le composant créé au dessus dans le const, oui oui on peut aussi faire comme ça */}
           <MapWithAMarker

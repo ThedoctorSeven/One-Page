@@ -64,21 +64,25 @@ class App extends Component {
             direction="row"
             justify="center"
           >
-            <Grid item xs={12} sm={10} xl={10} id="carousel">
+            <Grid item xs={12} sm={10} xl={10}>
+              <Panel
+                text="dire : react, material ui next, smoth scrool, yarn"
+                title="Introduction"
+              />
               <CarouselContainer />
-              <Panel text="yolo" title="yolo" />
+              <Panel text=" Le  " title="Carrousel et fetch" />
             </Grid>
             <Grid item xs={12} sm={10} xl={10} id="form">
               <Form />
-              <Panel text="bite" title="chat" />
+              <Panel text="bite" title="Formulaire et validation" />
             </Grid>
             <Grid item xs={12} sm={10} xl={10} id="joke">
               <Joke />
-              <Panel text="bite" title="chat" />
+              <Panel text="bite" title="Ajax" />
             </Grid>
             <Grid item xs={12} sm={10} xl={10} id="map">
               <Map />
-              <Panel text="bite" title="chat" />
+              <Panel text="bite" title="Carte" />
             </Grid>
           </Grid>
       </div>
