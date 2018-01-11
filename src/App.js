@@ -88,28 +88,29 @@ class App extends Component {
         >
           <Grid item xs={12} sm={10} xl={10} id="carousel">
             <Panel
-              text="Ce site a été developpé à l'aide de <a target='_blank' href='https://reactjs.org/'>React</a>, un FrameWork JavaScript puissant.
-              En tant que Gestionnaire de Dépendances Yarn* semblait être le bon choix.
-              Grâce à celui-ci, les différentes applications telles que le SmoothScroll* ont pu être intégrés sans problème, vous pouvez le voir en cliquant sur les icones du Header."
+              text="Ce site a été développé à l'aide de <a target='_blank' href='https://reactjs.org/'>React</a>, un FrameWork JavaScript puissant.
+              En tant que Gestionnaire de Dépendances, <a target='_blank' href='https://yarnpkg.com/en/'>Yarn </a> semblait être le bon choix.
+              Grâce à celui-ci, les différentes applications, telles que le <a target='_blank' href='https://www.npmjs.com/package/smoothscroll'>SmoothScroll</a>, ont pu être intégrées sans problème, vous pouvez le voir en cliquant sur les icônes du Header."
               title="Introduction"
             />
             <CarouselContainer />
             <Panel
-              text="Le Carrousel a été réalisé avec React-Responsive-Carousel* et récupère les images directement a partir du Website LoremPicsum* a l'aide d'un Fetch (et des Promise), les images sont prises au hazard."
-              title="Carrousel et fetch"
+              text="Le Carrousel a été réalisé avec <a target='_blank' href='https://www.npmjs.com/package/react-responsive-carousel'>React-Responsive-Carousel</a> et récupère les images directement à partir du Website <a target='_blank' href='https://picsum.photos/'>LoremPicsum</a> à l'aide d'un Fetch (et des Promise). Les images sont prises au hasard."
+              title="Carrousel"
             />
           </Grid>
           <Grid item xs={12} sm={10} xl={10} id="form">
             <Form />
             <Panel
-              text="Ce formulaire est créé avec un Card* ainsi que les Boutons* et les Zones de Texte* sont issues de Material-ui-next. Le DatePicker* provient d'un paquet npm.
-              À cela il a été ajouté un validateur, Joi*, pour s'assurer que les informations fournies sont exactes et au bon format."
+              text="Ce formulaire est créé avec un <a target='_blank' href='https://material-ui-next.com/demos/cards/'>Card</a> ainsi que les <a target='_blank' href='https://material-ui-next.com/demos/buttons/'>Boutons</a> et les Zones de <a target='blank' href='https://material-ui-next.com/demos/text-fields/'>Texte</a> sont issues de <a target='blank' href=https://material-ui-next.com/>Material-ui-next</a>. 
+              Le <a target='_blank' href= 'https://www.npmjs.com/package/material-ui-pickers'>DatePicker</a> provient d'un paquet npm.
+              À cela il a été ajouté un validateur, <a target='_blank' href='https://www.npmjs.com/package/joi'>Joi</a>, pour s'assurer que les informations fournies soient exactes et au bon format."
               title="Formulaire et validation"
             />
           </Grid>
           <Grid item xs={12} sm={10} xl={10} id="joke">
             <Panel
-              text="Cette zone est une simple Card* dans laquelle une requête XHR est faite a l'API*zbou et une nouvelle requête est faite a chaque clique sur le bouton 'suivant'."
+              text="Cette zone est une simple Card dans laquelle une requête <a target='_blank' href='https://www.npmjs.com/package/xhr-request'>XHR</a> est faite à <a target='_blank' href='https://api.chucknorris.io/jokes/random'>l'API</a> et une nouvelle requête est faite à chaque clic sur le bouton 'suivant'."
               title="C.N. Facts"
             />
             <Joke />
@@ -117,7 +118,7 @@ class App extends Component {
           <Grid item xs={12} sm={10} xl={10} id="map">
             <Map />
             <Panel
-              text="La Carte a été importé par un paquet npm* utilisant l'API GoogleMaps. Pour cela le tutoriel de mise en place était plutôt clair et précis sur la démancher à suivre et la configuration a mettre en place."
+              text="La Carte a été importée par un paquet <a target'_blank' href='https://www.npmjs.com/package/google-maps'>npm</a> utilisant l'API GoogleMaps. Pour cela le <a target='_blank' href='https://developers.google.com/maps/documentation/javascript/tutorial?hl=fr'>tutoriel</a> de mise en place était plutôt clair et précis sur la démarche à suivre et la configuration à mettre en place."
               title="Carte"
             />
           </Grid>
